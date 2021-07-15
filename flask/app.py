@@ -18,38 +18,43 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.ensemble import RandomForestRegressor
 
 import joblib
+import json
+import requests
 
 app = Flask(__name__) 
-
-loaded_model = joblib.load('model_rf_age_adjusted_wonder.sav')
 
 @app.route('/')
 def index(): 
     return render_template('index.html')
 
-@app.route('/predict', methods=['POST'])
-def predict(): 
-    int_features = [int(x) for x in request.form.values()]
-    final_features = [np.array(int_features)]
-    prediction = model.predict(final_features)
+def ValuePredictor(to_predict_list):
+    to_predict = np.array(to_predict_list).reshape(1,7)
+    loaded_model = joblib.load('final_model.sav')
+    result = loaded_model.predict(to_predict)
+    return result[0]
 
-    output = round(prediction[0], 2)
+# @app.route('/model', methods=['POST'])
+# def model():
+#     inputs = request.get_json()
+#     prediction = np.array2string(loaded_model.predict([inputs])
+#     return jsonify(prediction)
 
-    return render_template('index.html', prediction_text='You can expect to die at the age of {}'.format(output))
+@app.route('/result',methods=['POST'])
+def result():
+    if request.method == 'POST':
+        to_predict_list = request.form.to_dict()
+        to_predict_list = list(to_predict_list.values())
+        to_predict_list = list(map(int, to_predict_list))
+        result = ValuePredictor(to_predict_list) 
+    return render_template("result", prediction=result)
 
-
-def model(): 
-    inputs = request.args
-    results = loaded_model.predict([inputs['input_1']])
-    answer = int(results)
-    return answer
-
-@app.route('/results',methods=['POST'])
-def results(): 
-    data = request.get_json(force=True)
-    prediction = model.predict([np.array(list(data.values()))])
     output = prediction[0]
     return jsonify(output)
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     app.run(debug=True)
+
+url = 'http://localhost:5000/results'
+r = requests.post(url)
+
+print(r.json())
