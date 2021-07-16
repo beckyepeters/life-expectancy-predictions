@@ -7,7 +7,7 @@
         <p>Becky Peters, Galvanize Capstone 2 Regression Project</p>
       </div>
     <body>
-        
+        <br>
         The purpose of this project is to better understand 
         the methods and outcomes of regression analysis using machine learning techniques 
         and to do inferential modeling to discover the most important features when predicting
@@ -16,8 +16,10 @@
         a project from the US Census consisting of a "database developed for the purpose of studying the effects of demographic and 
         socio-economic characteristics on differentials in U.S. mortality rates." (Quote taken 
         from <a href="https://www.census.gov/topics/research/nlms.Project_Overview.html">their website</a>.)
+        <br>
+        <br>
         <div>
-            <form action="/result.html" method="POST">
+            <form action="/" method="POST">
               <label for="race">Which most closely identifies your race?</label>
               <select id="race" name="race">
                 <option value="1.0">White</option>
@@ -93,34 +95,30 @@
               <input type="submit" value="Submit">
             </form>
           </div>
-<!-- 
-        <span>Input 1: </span> <input id = "input_1"></input><br>
-        <span>Input 2: </span> <input id = "input_2"></input><br>
-        <span>Input 3: </span> <input id = "input_3"></input><br>
-        <span>Input 4: </span> <input id = "input_4"></input><br>
-        <span>Input 5: </span> <input id = "input_5"></input><br>
-        <span>Input 6: </span> <input id = "input_6"></input><br>
-        <span>Input 7: </span> <input id = "input_7"></input><br> -->
 
-        <!-- <button type="button" id="submit">Get my Prediction!</button> -->
-        <!-- <p id=result></p>
+          
 
-    <script
-    src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type=text/javascript>
     let display_results = function(data) {
-        $("p#result").text(data.model_result);
-    }
-
-    let send_data = function() {
-        $.getJSON('/model', {
-            input_1: $('input[id="input_1"]').val()
-        }, display_results);
-    }
-    $(function() {
-        $('button#submit').click(send_data);
-    });
-    </script> -->
-    
-    </body>
+                $("p#result").text(result);
+                }
+        
+        let send_data = function() {
+                   $.getJSON('/', {
+                    race: $('select[id="race"]').val()
+                    sex: $('select[id="sex"]').val()
+                    ms: $('select[id="ms"]').val()
+                    hisp: $('select[id="hisp"]').val()
+                    adjinc: $('select[id="adjinc"]').val()
+                    educ: $('select[id="educ"]').val()
+                    hitype $('select[id="hitype"]').val()
+                   }, display_results);
+                 }
+        $(function() {
+            $('button#submit').click(send_data);
+        });         
+    </script>
+</body>
 </html>
+ 
