@@ -21,7 +21,7 @@ def index():
 @app.route('/', methods=["POST"])
 def model(): 
     inputs = []
-    for idx in ['race', 'sex', 'ms', 'hisp', 'adjinc', 'educ', 'hitype']:
+    for idx in ['race', 'sex', 'ms', 'hisp', 'adjinc', 'educ', 'hitype', 'hhnum', 'pob', 'urban', 'tenure']:
         input = request.form.get(idx)
         inputs.append(input)
     results = loaded_model.predict([inputs])
