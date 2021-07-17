@@ -10,7 +10,7 @@ import json
 import requests
 
 app = Flask(__name__) 
-loaded_model = joblib.load('final_model.pkl')
+loaded_model = joblib.load('less_feat.pkl')
 
 
 @app.route('/') 
@@ -21,7 +21,7 @@ def index():
 @app.route('/', methods=["POST"])
 def model(): 
     inputs = []
-    for idx in ['race', 'sex', 'ms', 'hisp', 'adjinc', 'educ', 'hitype', 'hhnum', 'pob', 'urban', 'tenure']:
+    for idx in ['race', 'sex', 'ms', 'adjinc', 'educ', 'hhnum', 'pob', 'hitype']:
         input = request.form.get(idx)
         inputs.append(input)
     results = loaded_model.predict([inputs])
